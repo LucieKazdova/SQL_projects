@@ -1,0 +1,13 @@
+-- Zadání:
+-- Zpracuj přehled výrobců, kteří měli v roce 2013 v regionu East celkové tržby větší než 4 000 000 dolarů.
+
+-- Řešení:
+SELECT m.ManufacturerID, m.manufacturer, c.region, SUM(s.revenue) AS Celk_trzba 
+FROM manufacturer m 
+JOIN product p ON p.ManufacturerID = m.ManufacturerID 
+JOIN sales s ON s.ProductID = p.ProductID 
+JOIN country c ON c.Zip = s.Zip 
+WHERE date like '2013%' AND region = 'East' 
+GROUP BY m.Manufacturer, m.ManufacturerID
+HAVING Celk_trzba > 4000000 
+ORDER BY SUM(s.revenue) desc;
