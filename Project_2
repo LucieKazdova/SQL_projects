@@ -1,0 +1,19 @@
+-- Zadání:
+-- Zpracuj přehled, které výrobky firmy Currus se v roce 2015 vůbec neprodávaly. Pro přípravu použít view nebo CTE.
+
+-- Řešení:
+
+CREATE VIEW vwProdaneCurrus2015 as 
+SELECT p.productid, p.product, p.manufacturerid, d.date, s.units AS Pocet_prodanych 
+FROM product p 
+LEFT JOIN sales s on p.ProductID = s.ProductID 
+LEFT JOIN date d on s.date = d.date 
+JOIN manufacturer m on p.manufacturerid = m.ManufacturerID 
+WHERE m.manufacturer = 'Currus' and d.year LIKE '2015%'
+
+SELECT p.ProductID, p.Product, m.Manufacturer 
+FROM product p 
+JOIN manufacturer m on m.ManufacturerID = p.ManufacturerID 
+LEFT JOIN vwProdaneCurrus2015 v ON p.ProductID = v.productid
+WHERE m.Manufacturer = 'Currus' and v.productid IS NULL;
+
