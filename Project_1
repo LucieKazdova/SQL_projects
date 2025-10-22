@@ -1,12 +1,12 @@
-Zadání:
-Zjistit, kolik jednotlivých produktů s jednotkovou cenou mezi 500 a 600 dolary (včetně 500 a 600) se prodalo v roce 2014. 
-Ve výstupu uvést ID produktu, název, výrobce, jednotkovou cenu a počet prodaných kusů. Výsledky seřadit podle počtu prodaných kusů od nejvíce prodaných.
+-- Zadání:
+-- Zjistit, kolik jednotlivých produktů s jednotkovou cenou mezi 500 a 600 dolary (včetně 500 a 600) se prodalo v roce 2014. 
+-- Ve výstupu uvést ID produktu, název, výrobce, jednotkovou cenu a počet prodaných kusů. Výsledky seřadit podle počtu prodaných kusů od nejvíce prodaných.
 
-Řešení:
+-- Řešení:
 SELECT p.productid, p.product, m.manufacturer, p.pricenew, SUM(s.units) as Pocet_ks 
 FROM product p 
 JOIN manufacturer m on m.ManufacturerID = p.ManufacturerID 
 JOIN sales s on p.ProductID = s.ProductID 
 WHERE pricenew BETWEEN 500 and 600 and date like '2014%' 
 GROUP BY p.ProductID, p.Product, m.Manufacturer, p.PriceNew
-ORDER BY Pocet_ks desc
+ORDER BY Pocet_ks desc;
